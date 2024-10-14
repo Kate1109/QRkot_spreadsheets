@@ -20,12 +20,12 @@ class CRUDCharityProject(CRUDBase):
             )
         )
         return db_project_id.scalars().first()
-    
+
     async def get_projects_by_completion_rate(
             self,
             session: AsyncSession,
     ) -> List[CharityProject]:
-        """Запрос на все завершённые проекты."""
+        """Запрос по завершённым проектам."""
 
         projects = await session.execute(
             select([CharityProject.name,
