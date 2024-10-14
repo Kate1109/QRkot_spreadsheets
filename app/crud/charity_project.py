@@ -1,6 +1,6 @@
-from typing import Optional
+from typing import List, Optional
 
-from sqlalchemy import select
+from sqlalchemy import select, extract
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.crud.base import CRUDBase
@@ -20,6 +20,35 @@ class CRUDCharityProject(CRUDBase):
             )
         )
         return db_project_id.scalars().first()
+    
+    async def get_projects_by_completion_rate(
+            self,
+            session: AsyncSession,
+    ) -> List[CharityProject]:
+        """Запрос на все завершённые проекты."""
+
+        projects = await session.execute(
+            select([CharityProject.name,
+                    CharityProject.description,
+                    CharityProject.create_date,
+                    CharityProject.close_date]).where(
+                CharityProject.fully_invested.is_(True)
+            ).order_by(
+                extract('year', CharityProject.close_date) -
+                extract('year', CharityProject.create_date),
+                extract('month', CharityProject.close_date) -
+                extract('month', CharityProject.create_date),
+                extract('day', CharityProject.close_date) -
+                extract('day', CharityProject.create_date),
+                extract('hour', CharityProject.close_date) -
+                extract('hour', CharityProject.create_date),
+                extract('minute', CharityProject.close_date) -
+                extract('minute', CharityProject.create_date),
+                extract('second', CharityProject.close_date) -
+                extract('second', CharityProject.create_date),
+            )
+        )
+        return projects.all()
 
 
 charity_project_crud = CRUDCharityProject(CharityProject)
