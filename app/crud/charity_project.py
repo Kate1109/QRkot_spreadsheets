@@ -42,10 +42,6 @@ class CRUDCharityProject(CRUDBase):
                 extract('day', CharityProject.create_date),
                 extract('hour', CharityProject.close_date) -
                 extract('hour', CharityProject.create_date),
-                extract('minute', CharityProject.close_date) -
-                extract('minute', CharityProject.create_date),
-                extract('second', CharityProject.close_date) -
-                extract('second', CharityProject.create_date),
             )
         )
         return projects.all()

@@ -81,7 +81,7 @@ async def delete_charity_project(
     """
     Только для суперюзеров.
     Удаляет проект. Нельзя удалить проект, в который уже были инвестированы
-     средства, его можно только закрыть.
+    средства, его можно только закрыть.
     """
     charity_project = await check_charity_project_exists(
         project_id, session
@@ -104,7 +104,7 @@ async def update_charity_project(
     """
     Только для суперюзеров.
     Закрытый проект нельзя редактировать. Нельзя установить требуемую сумму
-     меньше уже вложенной.
+    меньше уже вложенной.
     """
     charity_project = await check_charity_project_exists(
         project_id, session

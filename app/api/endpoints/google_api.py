@@ -31,4 +31,4 @@ async def get_report(
     await spreadsheets_update_value(spreadsheetid,
                                     projects,
                                     wrapper_services)
-    return f'Ссылка - https://docs.google.com/spreadsheets/d/{spreadsheetid}'
+    return projects

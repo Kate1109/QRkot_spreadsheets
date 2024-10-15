@@ -32,6 +32,7 @@ users_router = fastapi_users.get_users_router(UserRead, UserUpdate)
     deprecated=True
 )
 def delete_user(id: str):
+    """Не используйте удаление, деактивируйте пользователей."""
     raise HTTPException(
         status_code=HTTPStatus.METHOD_NOT_ALLOWED,
         detail='Удаление пользователей запрещено!'
